@@ -1,23 +1,24 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"workbench.iconTheme": "vscode-icons",
-		"workbench.colorTheme": "Monokai",
-		"editor.formatOnSave": true,
-		"files.encoding": "utf8",
-		"files.eol": "\n",
-		"[go]": {
-			"editor.insertSpaces": false,
-			"editor.formatOnSave": true,
-			"editor.codeActionsOnSave": {
-				"source.organizeImports": "explicit"
-			},
-			"files.encoding": "utf8",
-			"files.eol": "\n"
-		}
-	}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Monokai",
+    "editor.formatOnSave": true,
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    "[go]": {
+      "editor.insertSpaces": false,
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      },
+      "files.encoding": "utf8",
+      "files.eol": "\n"
+    },
+    "debug.console.collapseIdenticalLines": false
+  }
 }
