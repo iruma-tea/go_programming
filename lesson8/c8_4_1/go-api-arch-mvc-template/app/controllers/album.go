@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"go-api-arch-mvc-template/api"
