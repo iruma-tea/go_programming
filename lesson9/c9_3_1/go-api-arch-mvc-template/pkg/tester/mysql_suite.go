@@ -3,8 +3,6 @@ package tester
 import (
 	"context"
 	"fmt"
-	"go-api-arch-mvc-template/app/models"
-	"go-api-arch-mvc-template/configs"
 	"log"
 	"net"
 	"time"
@@ -12,6 +10,9 @@ import (
 	"github.com/stretchr/testify/suite"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
+
+	"go-api-arch-mvc-template/app/models"
+	"go-api-arch-mvc-template/configs"
 )
 
 func CheckPort(host string, port int) bool {
@@ -55,7 +56,7 @@ func (suite *DBMySQLSuite) SetupTestContainers() (err error) {
 			"MYSQL_ALLOW_EMPTY_PASSWORD": "yes",
 		},
 		ExposedPorts: []string{fmt.Sprintf("%d:3306/tcp", configs.Config.DBPort)},
-		WaitingFor:   wait.ForLog("port: 3306 MySQL Community Server"),
+		WaitingFor:   wait.ForLog("port: 3306  MySQL Community Server"),
 	}
 
 	suite.mySQLContainer, err = testcontainers.GenericContainer(suite.ctx, testcontainers.GenericContainerRequest{
