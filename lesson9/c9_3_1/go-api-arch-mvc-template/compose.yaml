@@ -11,12 +11,12 @@ services:
       MYSQL_DATABASE: api_database
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 3s
       timeout: 5s
       retries: 5
       start_period: 5s
-    restart: always
+    # restart: always
     volumes:
       - ./external-apps/db/:/docker-entrypoint-initdb.d
     networks:
