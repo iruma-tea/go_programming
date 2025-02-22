@@ -33,6 +33,7 @@ func main() {
 	}
 
 	server, err := web.NewServer(web.InstanceGin, db)
+	// server, err := web.NewServer(web.InstanceEcho, db)
 	if err != nil {
 		logger.Fatal(err.Error())
 	}
