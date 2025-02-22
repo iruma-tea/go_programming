@@ -46,7 +46,7 @@ integration-test: generate-code-from-openapi docker-build ## Run integration tes
 	-pushd ./build/docker && docker-compose up -d --wait mysql web && popd
 	-go clean -testcache
 	-go test -v ./integration/...
-	-pushd ./build/docker && docker-compose down && popd
+	+pushd ./build/docker && docker-compose down && popd
 
 lint: ## Run lint to show the diff
 	# Install with `brew install golangci-lint` on Mac

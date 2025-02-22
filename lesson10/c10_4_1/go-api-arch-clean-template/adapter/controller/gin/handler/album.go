@@ -26,7 +26,7 @@ func albumToResponse(album *entity.Album) *presenter.AlbumResponse {
 		Title:       album.Title,
 		ReleaseDate: presenter.ReleaseDate{Time: album.ReleaseDate},
 		Category: presenter.Category{
-			Id:   &album.CategoryID,
+			Id:   &album.Category.ID,
 			Name: presenter.CategoryName(album.Category.Name),
 		},
 	}
