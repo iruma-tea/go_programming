@@ -10,13 +10,13 @@ generate-code-from-openapi: ## Generate code from openapi
 	$(OSPI_CMD)
 
 external-up: ## Up external containers
-	pushd ./build/docker && docker-compose up -d mysql && popd
+	pushd ./build/docker && docker compose up -d mysql && popd
 
 external-down: ## Down external containers
-	pushd ./build/docker && docker-compose down && popd
+	pushd ./build/docker && docker compose down && popd
 
 mysql-cli: ## Connect to mysql cli
-	pushd ./build/docker && docker-compose run mysql-cli && popd
+	pushd ./build/docker && docker compose run mysql-cli && popd
 
 run: ## Run app
 	export APP_ENV=development
@@ -29,10 +29,10 @@ docker-run: ## Run docker
 	docker run -p 8080:8080 -i -t $(IMAGE_TAG)
 
 docker-compose-up: docker-build ## Run docker compose up
-	pushd ./build/docker && docker-compose up -d --wait mysql web swagger-ui && popd
+	pushd ./build/docker && docker compose up -d --wait mysql web swagger-ui && popd
 
 docker-compose-down: ## Run docker compose down
-	pushd ./build/docker && docker-compose down && popd
+	pushd ./build/docker && docker compose down && popd
 
 unittest: ## Run unittest
 	go clean -testcache
@@ -43,10 +43,10 @@ test-cover: ## Run test cover
 
 integration-test: generate-code-from-openapi docker-build ## Run integration test
 	export APP_ENV=integration
-	-pushd ./build/docker && docker-compose up -d --wait mysql web && popd
+	-pushd ./build/docker && docker compose up -d --wait mysql web && popd
 	-go clean -testcache
 	-go test -v ./integration/...
-	+pushd ./build/docker && docker-compose down && popd
+	+pushd ./build/docker && docker compose down && popd
 
 lint: ## Run lint to show the diff
 	# Install with `brew install golangci-lint` on Mac
