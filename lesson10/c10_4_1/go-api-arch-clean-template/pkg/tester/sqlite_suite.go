@@ -33,4 +33,5 @@ func (suite *DBSQLiteSuite) SetupSuite() {
 func (suite *DBSQLiteSuite) TearDownSuite() {
 	err := os.Remove(suite.DBName)
 	suite.Assert().Nil(err)
+	os.Unsetenv(suite.DBName)
 }

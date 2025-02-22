@@ -65,6 +65,9 @@ func (a *albumRepository) Save(album *entity.Album) (*entity.Album, error) {
 	if err := copier.CopyWithOption(selectedAlbum, album, copier.Option{IgnoreEmpty: true, DeepCopy: true}); err != nil {
 		return nil, err
 	}
+	if err := a.db.Save(&selectedAlbum).Error; err != nil {
+		return nil, err
+	}
 	return selectedAlbum, nil
 }
 
