@@ -70,7 +70,11 @@ func NewGinRouter(db *gorm.DB, corsAllowOrigins []string) (*gin.Engine, error) {
 			albumRepository := gateway.NewAlbumRepository(db)
 			albumUseCase := usecase.NewAlbumUseCase(albumRepository)
 			albumHandler := handler.NewAlbumHandler(albumUseCase)
-			presenter.RegisterHandlers(v1, albumHandler)
+			userHandler := handler.NewUserHandler()
+			presenter.RegisterHandlers(v1,
+				handler.NewHandler().
+					Register(albumHandler).
+					Register(userHandler))
 		}
 	}
 	return router, err
