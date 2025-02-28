@@ -1,0 +1,188 @@
+openapi: 3.0.3
+info:
+  title: Go API Template
+  version: 1.0.0
+servers:
+  - url: http://0.0.0.0:8080/api/v1
+  - url: http://localhost:8080/api/v1
+  - url: http://127.0.0.1:8080/api/v1
+paths:
+  /albums:
+    post:
+      summary: Create a new album
+      operationId: createAlbum
+      requestBody:
+        $ref: '#/components/requestBodies/AlbumCreateRequestBody'
+        required: true
+      responses:
+        '201':
+          $ref: '#/components/responses/AlbumResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+  /albums/{id}:
+    get:
+      summary: Find album by ID
+      operationId: getAlbumById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/AlbumResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      summary: Update a album by ID
+      operationId: updateAlbumById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        $ref: '#/components/requestBodies/AlbumUpdateRequestBody'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/AlbumResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+    delete:
+      summary: Delete a album by ID
+      operationId: deleteAlbumById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+components:
+  schemas:
+    ApiVersion:
+      type: string
+      default: "v1"
+    ReleaseDate:
+      type: string
+      format: date
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          enum:
+            - food
+            - music
+            - sports
+      required:
+        - name
+    Album:
+      type: object
+      properties:
+        kind:
+          type: string
+          default: "album"
+        id:
+          type: integer
+        title:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        anniversary:
+          type: integer
+        releaseDate:
+          $ref: '#/components/schemas/ReleaseDate'
+      required:
+        - kind
+        - id
+        - title
+        - category
+        - anniversary
+        - releaseDate
+    AlbumUpdateRequest:
+      type: object
+      properties:
+        kind:
+          type: string
+          default: "album"
+        title:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+    AlbumCreateRequest:
+      type: object
+      properties:
+        kind:
+          type: string
+          default: "album"
+        title:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        releaseDate:
+          $ref: '#/components/schemas/ReleaseDate'
+      required:
+        - title
+        - category
+        - releaseDate
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+      required:
+        - message
+        - code
+  requestBodies:
+    AlbumCreateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AlbumCreateRequest'
+    AlbumUpdateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AlbumUpdateRequest'
+  responses:
+    AlbumResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              apiVersion:
+                $ref: '#/components/schemas/ApiVersion'
+              data:
+                $ref: '#/components/schemas/Album'
+            required:
+              - apiVersion
+              - data
+    ErrorResponse:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                $ref: '#/components/schemas/Error'
+            required:
+              - error
